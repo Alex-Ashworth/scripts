@@ -9,8 +9,8 @@ fi
 
 mkdir -p src/ "src/$DIR" tests/
 
-[[ -e "launcher.py" ]] || cat <<'EOF' > launcher.py
-from project.cli import main
+[[ -e "launcher.py" ]] || cat <<EOF > launcher.py
+from $DIR.cli import main
 
 raise SystemExit(main())
 EOF
