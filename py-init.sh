@@ -7,13 +7,7 @@ else
   read -rp "Enter a name for your project: " DIR
 fi
 
-mkdir -p src/ "src/$DIR" tests/
-
-[[ -e "launcher.py" ]] || cat <<EOF > launcher.py
-from $DIR.cli import main
-
-raise SystemExit(main())
-EOF
+mkdir -p "src/$DIR/core/" tests/
 
 [[ -e "src/$DIR/__init__.py" ]] || cat <<'EOF' > "src/$DIR/__init__.py"
 from .core import run
@@ -33,11 +27,14 @@ EOF
 from .core import run
 
 def main() -> int:
-  run()
-  return 0
+  return 0 if run() else 1
 EOF
 
-[[ -e "src/$DIR/core.py" ]] || printf '# Core logic:' >> "src/$DIR/core.py"
+[[ -e "src/$DIR/core/__init__.py" ]] || cat <<'EOF' > "src/$DIR/core/__init__.py"
+from .core import run
+EOF
+
+[[ -e "src/$DIR/core/core.py" ]] || printf '# Core logic:' >> "src/$DIR/core/core.py"
 [[ -e "src/$DIR/utils.py" ]] || printf '# Utils, generic functions, and classes:' >> "src/$DIR/utils.py"
 [[ -e "README.md" ]] || printf '## Default README for %s Python project.' "$DIR" >> README.md
 [[ -e ".env" ]] || touch .env
