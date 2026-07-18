@@ -1,1 +1,1 @@
-### A collection of scripts I find useful or interesting.
+### A collection of personal, but globally reusable scripts.
